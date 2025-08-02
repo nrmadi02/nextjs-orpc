@@ -43,7 +43,7 @@ app.use("/rpc/*", async (c, next) => {
   const { matched, response } = await handler.handle(request, {
     prefix: "/rpc",
     context: {
-      header: c.req.header,
+      req: c.req,
       db: prisma,
     },
   });
@@ -60,7 +60,9 @@ serve(
     fetch: app.fetch,
     port,
   },
-  (info) => {
+  async (info) => {
+    await prisma.$connect();
+    console.log("Database connected");
     console.log(`Server is running on http://localhost:${info.port}`);
   }
 );

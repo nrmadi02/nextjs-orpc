@@ -1,16 +1,16 @@
-import { implement } from "@orpc/server";
 import { postContract } from "../contracts/post.contract.js";
-import type { Context } from "../lib/context.js";
+import { implementRouter } from "../lib/orpc.js";
+import secureMiddleware from "../middleware/secure.middleware.js";
 import { PostService } from "../services/post.service.js";
 
-const os = implement(postContract).$context<Context>();
+const os = implementRouter(postContract).use(secureMiddleware);
 
 const createResponse = <T>(message: string, data: T) => ({
   message,
   data,
 });
 
-export const postRouter = {
+export const postRouter = os.router({
   listPost: os.listPost.handler(async ({ context }) => {
     const postService = new PostService(context);
     const posts = await postService.findAll();
@@ -45,4 +45,4 @@ export const postRouter = {
 
     return createResponse("Success, delete post", post);
   }),
-};
+});
