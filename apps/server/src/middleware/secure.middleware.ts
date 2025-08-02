@@ -2,8 +2,6 @@ import { ORPCError } from "@orpc/client";
 import { o } from "../lib/orpc";
 
 const secureMiddleware = o.middleware(async ({ context, next }) => {
-  console.log(context.req.header("x-api-key"));
-
   const apiKey = context.req.header("x-api-key");
   const existApiKey = "password";
 

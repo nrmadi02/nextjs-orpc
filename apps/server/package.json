@@ -11,9 +11,9 @@
 		"@orpc/client": "^1.7.8",
 		"@orpc/contract": "^1.7.8",
 		"@orpc/server": "^1.7.8",
+		"@repo/db": "workspace:*",
 		"dotenv": "^17.2.1",
 		"hono": "^4.8.12",
-		"@repo/db": "workspace:*",
 		"zod": "^4.0.14"
 	},
 	"devDependencies": {

@@ -5,6 +5,7 @@ import { cors } from "hono/cors";
 import { appRouter } from "./routers/index.js";
 import "dotenv/config";
 import { prisma } from "@repo/db";
+import { logger } from "hono/logger";
 
 const BODY_PARSER_METHODS = new Set([
   "arrayBuffer",
@@ -29,6 +30,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(logger());
 
 app.use("/rpc/*", async (c, next) => {
   const request = new Proxy(c.req.raw, {

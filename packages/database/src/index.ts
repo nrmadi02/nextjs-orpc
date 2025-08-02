@@ -1,3 +1,3 @@
-export * from "../generated/prisma/index.js";
-export * as schema from "../generated/zod/index.js";
-export { prisma } from "./client.js";
+export * from "../generated/prisma";
+export * as schema from "../generated/zod";
+export { prisma } from "./client";
