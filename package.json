@@ -1,29 +1,29 @@
 {
-  "name": "nextjs-orpc",
-  "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "scripts": {
-    "check": "oxlint",
-    "prepare": "husky",
-    "dev": "turbo dev",
-    "build": "turbo build",
-    "check-types": "turbo check-types",
-    "dev:native": "turbo -F native dev",
-    "dev:web": "turbo -F web dev",
-    "dev:server": "turbo -F server dev"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^2.1.2",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.1.2",
-    "oxlint": "^1.8.0",
-    "turbo": "^2.5.5"
-  },
-  "lint-staged": {
-    "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue,astro,svelte}": "oxlint"
-  },
-  "packageManager": "pnpm@10.12.4"
+	"name": "nextjs-orpc",
+	"private": true,
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	],
+	"scripts": {
+		"check": "oxlint",
+		"prepare": "husky",
+		"dev": "turbo dev",
+		"build": "turbo build",
+		"check-types": "turbo check-types",
+		"dev:native": "turbo -F native dev",
+		"dev:web": "turbo -F web dev",
+		"dev:server": "turbo -F server dev"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.1.2",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.1.2",
+		"oxlint": "^1.8.0",
+		"turbo": "^2.5.5"
+	},
+	"lint-staged": {
+		"**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue,astro,svelte}": "oxlint"
+	},
+	"packageManager": "pnpm@10.12.4"
 }

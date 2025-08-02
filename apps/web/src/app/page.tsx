@@ -1,4 +1,7 @@
-"use client"
+"use client";
+
+import { orpc } from "@/utils/orcp";
+import { useQuery } from "@tanstack/react-query";
 
 const TITLE_TEXT = `
  ██████╗ ███████╗████████╗████████╗███████╗██████╗
@@ -17,15 +20,26 @@ const TITLE_TEXT = `
  `;
 
 export default function Home() {
+	const healthCheck = useQuery(orpc.healthCheck.queryOptions());
+	const posts = useQuery(orpc.post.listPost.queryOptions());
 
-  return (
-    <div className="container mx-auto max-w-3xl px-4 py-2">
-      <pre className="overflow-x-auto font-mono text-sm">{TITLE_TEXT}</pre>
-      <div className="grid gap-6">
-        <section className="rounded-lg border p-4">
-          <h2 className="mb-2 font-medium">API Status</h2>
-        </section>
-      </div>
-    </div>
-  );
+	return (
+		<div className="container mx-auto max-w-3xl px-4 py-2">
+			<pre className="overflow-x-auto font-mono text-sm">{TITLE_TEXT}</pre>
+			<div className="grid gap-6">
+				<section className="rounded-lg border p-4">
+					<h2 className="mb-2 font-medium">API Status</h2>
+					<p>{healthCheck.data}</p>
+				</section>
+				<section className="rounded-lg border p-4">
+					<h2 className="mb-2 font-medium">Posts</h2>
+					<ul>
+						{posts.data?.data.map((post) => (
+							<li key={post.id}>{post.title}</li>
+						))}
+					</ul>
+				</section>
+			</div>
+		</div>
+	);
 }
