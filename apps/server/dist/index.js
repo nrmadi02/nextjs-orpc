@@ -1,8 +1,8 @@
-import { Hono } from "hono";
-import { RPCHandler } from "@orpc/server/fetch";
 import { serve } from "@hono/node-server";
-import { appRouter } from "./routers/index.js";
+import { RPCHandler } from "@orpc/server/fetch";
+import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { appRouter } from "./routers/index.js";
 import "dotenv/config";
 import { prisma } from "@repo/db";
 const BODY_PARSER_METHODS = new Set([
