@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { orpc } from "@/utils/orcp";
 
 const TITLE_TEXT = `
@@ -21,7 +22,22 @@ const TITLE_TEXT = `
 
 export default function Home() {
   const healthCheck = useQuery(orpc.healthCheck.queryOptions());
-  const posts = useQuery(orpc.post.listPost.queryOptions());
+  const posts = useQuery(
+    orpc.post.listPost.queryOptions({
+      input: {
+        limit: 10,
+        page: 1,
+      },
+    })
+  );
+
+  useEffect(() => {
+    async function testFetch() {
+      const healthCheck = await orpc.healthCheck.call();
+      console.log(healthCheck);
+    }
+    testFetch();
+  }, []);
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-2">

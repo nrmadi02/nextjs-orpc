@@ -2,6 +2,11 @@ import { ORPCError } from "@orpc/server";
 import type { z } from "zod";
 import type { PostSchema } from "../contracts/post.contract.js";
 import type { Context } from "../lib/context.js";
+import {
+  type IPaginationParams,
+  type IPaginationResponse,
+  paginate,
+} from "../lib/pagination.js";
 
 type Post = z.infer<typeof PostSchema>;
 type PostCreateData = Omit<Post, "id" | "createdAt" | "updatedAt">;
@@ -10,8 +15,28 @@ type PostUpdateData = Omit<Post, "createdAt" | "updatedAt">;
 export class PostService {
   constructor(private context: Context) {}
 
-  async findAll(): Promise<Post[]> {
-    return await this.context.db.post.findMany();
+  async findAll(params: IPaginationParams): Promise<IPaginationResponse<Post>> {
+    const [total, posts] = await this.context.db.$transaction([
+      this.context.db.post.count(),
+      this.context.db.post.findMany({
+        ...paginate(params),
+      }),
+    ]);
+
+    return {
+      data: posts,
+      meta: {
+        total,
+        lastPage: Math.ceil(total / params.limit),
+        currentPage: params.page,
+        totalPerPage: params.limit,
+        prevPage: params.page > 1 ? params.page - 1 : null,
+        nextPage:
+          params.page < Math.ceil(total / params.limit)
+            ? params.page + 1
+            : null,
+      },
+    };
   }
 
   async findById(id: number): Promise<Post> {

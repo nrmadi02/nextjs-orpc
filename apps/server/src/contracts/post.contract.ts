@@ -1,7 +1,8 @@
 import { oc } from "@orpc/contract";
 import { schema } from "@repo/db";
 import z from "zod";
-import { baseContract } from "./base.contract.js";
+import { paginationParamsSchema } from "../lib/pagination.js";
+import { baseContract, paginationContract } from "./base.contract.js";
 
 export const PostSchema = schema.PostSchema;
 
@@ -15,7 +16,9 @@ const PostIdInput = z.object({ id: z.number() });
 
 export const postContract = {
   createPost: oc.input(PostCreateInput).output(baseContract(PostSchema)),
-  listPost: oc.output(baseContract(PostSchema.array())),
+  listPost: oc
+    .input(paginationParamsSchema)
+    .output(paginationContract(PostSchema.array())),
   getPost: oc.input(PostIdInput).output(baseContract(PostSchema)),
   updatePost: oc.input(PostUpdateInput).output(baseContract(PostSchema)),
   deletePost: oc.input(PostIdInput).output(baseContract(PostSchema)),

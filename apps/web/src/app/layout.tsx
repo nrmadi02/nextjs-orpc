@@ -4,7 +4,6 @@ import "../index.css";
 import Header from "@/components/header";
 import Providers from "@/components/providers";
 import QueryClientProvider from "@/components/query-client.provider";
-import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,7 +36,6 @@ export default function RootLayout({
               <Header />
               {children}
             </div>
-            <Toaster />
           </QueryClientProvider>
         </Providers>
       </body>

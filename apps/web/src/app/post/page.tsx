@@ -52,7 +52,14 @@ export default function PostsPage() {
     },
   });
 
-  const postQuery = useQuery(orpc.post.listPost.queryOptions());
+  const postQuery = useQuery(
+    orpc.post.listPost.queryOptions({
+      input: {
+        limit: 10,
+        page: 1,
+      },
+    })
+  );
   const createMutation = useMutation(orpc.post.createPost.mutationOptions());
   const updateMutation = useMutation(orpc.post.updatePost.mutationOptions());
   const deleteMutation = useMutation(orpc.post.deletePost.mutationOptions());

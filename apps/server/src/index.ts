@@ -4,8 +4,10 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { appRouter } from "./routers/index.js";
 import "dotenv/config";
+import { onError } from "@orpc/client";
 import { prisma } from "@repo/db";
 import { logger } from "hono/logger";
+import validationErrorInterceptor from "./interceptors/error-validation.interceptor.js";
 
 const BODY_PARSER_METHODS = new Set([
   "arrayBuffer",
@@ -20,9 +22,12 @@ type BodyParserMethod = typeof BODY_PARSER_METHODS extends Set<infer T>
   : never;
 
 const app = new Hono();
-const handler = new RPCHandler(appRouter);
+const handler = new RPCHandler(appRouter, {
+  interceptors: [onError(validationErrorInterceptor)],
+});
 const port = Number(process.env.APP_PORT) || 3000;
 
+app.use(logger());
 app.use(
   "*",
   cors({
@@ -30,8 +35,6 @@ app.use(
     credentials: true,
   })
 );
-
-app.use(logger());
 
 app.use("/rpc/*", async (c, next) => {
   const request = new Proxy(c.req.raw, {
