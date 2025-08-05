@@ -29,3 +29,39 @@ model Post {
 
   @@map("posts")
 }
+
+model Room {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  isPrivate   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  messages Message[]
+
+  @@map("rooms")
+}
+
+model Message {
+  id        Int         @id @default(autoincrement())
+  content   String
+  type      MessageType @default(TEXT)
+  createdAt DateTime    @default(now())
+
+  userId   Int
+  username String
+  avatar   String?
+
+  roomId Int
+  room   Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
+  SYSTEM
+}

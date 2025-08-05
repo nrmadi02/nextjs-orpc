@@ -7,6 +7,7 @@ export default function Header() {
   const links = [
     { to: "/", label: "Home" },
     { to: "/post", label: "Post" },
+    { to: "/chat", label: "Room Chat" },
   ];
 
   return (
@@ -16,7 +17,7 @@ export default function Header() {
           {links.map(({ to, label }) => {
             return (
               <Link key={to} href={to}>
-                {label}
+                <p className="hover:underline">{label}</p>
               </Link>
             );
           })}
