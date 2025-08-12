@@ -50,9 +50,9 @@ export const paginationOutput = <T>(
   const prevPage = currentPage > 1 ? currentPage - 1 : null;
   const nextPage = currentPage < lastPage ? currentPage + 1 : null;
 
-  if (page > lastPage) {
+  if (currentPage > lastPage && lastPage > 0) {
     throw new ORPCError("NOT_FOUND", {
-      message: `Page ${page} not found. Last page is ${lastPage}`,
+      message: `Page ${currentPage} not found. Last page is ${lastPage}`,
     });
   }
 
