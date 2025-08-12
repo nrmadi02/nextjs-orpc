@@ -17,7 +17,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
-import { orpc } from "@/utils/orcp";
+import { orpc } from "@/utils/orpc";
 
 type Post = z.infer<typeof schema.PostSchema>;
 type PostCreateData = Omit<Post, "id" | "createdAt" | "updatedAt">;
