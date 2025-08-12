@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import UsernameInput from "@/components/username-input";
-import { orpc } from "@/utils/orcp";
+import { orpc } from "@/utils/orpc";
 import ChatRoom from "../../components/chat-room";
 
 interface AnonymousUser {

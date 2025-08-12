@@ -3,7 +3,7 @@ import { schema } from "@repo/db";
 import { useMutation } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef, useState } from "react";
 import z from "zod";
-import { orpc } from "@/utils/orcp";
+import { orpc } from "@/utils/orpc";
 
 const MessagePayloadSchema = schema.MessageSchema.omit({
   createdAt: true,
