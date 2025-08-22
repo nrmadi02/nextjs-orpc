@@ -1,7 +1,6 @@
 import { prisma } from "../src";
 
 async function main() {
-  // Create default public rooms
   const defaultRooms = [
     {
       id: 1,
